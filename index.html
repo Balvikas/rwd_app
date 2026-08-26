@@ -514,7 +514,7 @@ function handleSubmit(statusType) {
     // FIXED: Changed payload properties from studentName to student to mirror Apps Script receiver variables
     const payload = {
         timestamp: new Date().toISOString(),
-        student: selectedStudentName,
+        studentName: selectedStudentName,
         group: document.getElementById("group").value,
         parentName: document.getElementById("parentName").value,
         parentPhone: document.getElementById("parentPhone").value,
