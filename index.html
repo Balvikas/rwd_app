@@ -360,7 +360,14 @@
                         <span>🔴</span> Check Out
                     </button>
                 </div>
+<!-- UPDATED: Open Absentee Report in Another Page -->
+<div style="margin-top: 1rem;">
+    <button type="button" class="btn-kiosk" style="background-color: #4f46e5; width: 100%; box-shadow: 0 6px 16px rgba(79, 70, 229, 0.2);" onclick="openAbsenteePage()">
+        <span>📋</span> Absentee Report
+    </button>
+</div>
 
+				
                 <div id="statusAlert" class="status-alert"></div>
             </form>
         </div>
@@ -472,6 +479,22 @@ function autofillStudentData() {
     }
 }
 
+// PASTE THE NEW FUNCTION DIRECTLY HERE:
+function openAbsenteePage() {
+    const alertBox = document.getElementById("statusAlert");
+
+    if (GOOGLE_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbyA8Pi8BkPMP5Xk4VB86qEuJfsVc0HJTTN60MdBtgIJ9RwLzhLJ2fL-epejLhY9vHRI/exec") {
+        alertBox.className = "status-alert alert-warning";
+        alertBox.style.display = "block";
+        alertBox.textContent = "⚠️ Please configure your live GOOGLE_SCRIPT_URL to view reports.";
+        return;
+    }
+
+    // Opens your Google Sheet Web App endpoint in a brand new, clean page
+    window.open(`${GOOGLE_SCRIPT_URL}?action=getAbsentees`, '_blank');
+}
+
+	
 // 1. PLACE YOUR GOOGLE APPS SCRIPT WEB APP DEPLOYMENT URL HERE:
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyA8Pi8BkPMP5Xk4VB86qEuJfsVc0HJTTN60MdBtgIJ9RwLzhLJ2fL-epejLhY9vHRI/exec";
 
