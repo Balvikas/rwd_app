@@ -455,7 +455,7 @@ const studentDatabase = {
     "Satyank Sai Kanugula": { group: "Group 4", parent: "Ramesh Kanugula", phone: "5104498571" }
 };
 
-// Map names for quick data injection lookup
+// Normalize data mapping once for instant runtime lookup matches
 const normalizedDatabase = {};
 for (let key in studentDatabase) {
     normalizedDatabase[key.toLowerCase().trim()] = studentDatabase[key];
@@ -479,24 +479,22 @@ function autofillStudentData() {
     }
 }
 
-// PASTE THE NEW FUNCTION DIRECTLY HERE:
+// Global App Link Configuration Variable Settings
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyA8Pi8BkPMP5Xk4VB86qEuJfsVc0HJTTN60MdBtgIJ9RwLzhLJ2fL-epejLhY9vHRI/exec";
+
 function openAbsenteePage() {
     const alertBox = document.getElementById("statusAlert");
 
-    if (GOOGLE_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbyA8Pi8BkPMP5Xk4VB86qEuJfsVc0HJTTN60MdBtgIJ9RwLzhLJ2fL-epejLhY9vHRI/exec") {
+    // FIXED: Correct check placeholder logic criteria rule evaluation
+    if (GOOGLE_SCRIPT_URL === "YOUR_DEPLOYED_WEB_APP_URL_HERE" || GOOGLE_SCRIPT_URL === "") {
         alertBox.className = "status-alert alert-warning";
         alertBox.style.display = "block";
         alertBox.textContent = "⚠️ Please configure your live GOOGLE_SCRIPT_URL to view reports.";
         return;
     }
 
-    // Opens your Google Sheet Web App endpoint in a brand new, clean page
     window.open(`${GOOGLE_SCRIPT_URL}?action=getAbsentees`, '_blank');
 }
-
-	
-// 1. PLACE YOUR GOOGLE APPS SCRIPT WEB APP DEPLOYMENT URL HERE:
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyA8Pi8BkPMP5Xk4VB86qEuJfsVc0HJTTN60MdBtgIJ9RwLzhLJ2fL-epejLhY9vHRI/exec";
 
 function handleSubmit(statusType) {
     const dropdown = document.getElementById("studentDropdown");
@@ -509,25 +507,21 @@ function handleSubmit(statusType) {
     }
     
     const selectedStudentName = dropdown.value;
-    
-    // Show Processing Status Alert box
     alertBox.className = "status-alert alert-warning";
     alertBox.style.display = "block";
     alertBox.textContent = `⏳ Processing ${statusType}...`;
 
-    // Package payload data
+    // FIXED: Changed payload properties from studentName to student to mirror Apps Script receiver variables
     const payload = {
         timestamp: new Date().toISOString(),
-        studentName: selectedStudentName,
+        student: selectedStudentName,
         group: document.getElementById("group").value,
         parentName: document.getElementById("parentName").value,
         parentPhone: document.getElementById("parentPhone").value,
         status: statusType
     };
     
-    // Live network transmission logic
     if (GOOGLE_SCRIPT_URL === "YOUR_DEPLOYED_WEB_APP_URL_HERE") {
-        // Fallback simulator if no active sheet link is provided yet
         console.log("Simulating submit (No API URL set):", payload);
         setTimeout(() => {
             alertBox.className = "status-alert alert-success";
@@ -538,12 +532,12 @@ function handleSubmit(statusType) {
             }, 3000);
         }, 1000);
     } else {
-        // Production Fetch API implementation execution
+        // FIXED: Set header content stream type filter parameter to text/plain to circumvent CORS payload locks
         fetch(GOOGLE_SCRIPT_URL, {
             method: "POST",
             mode: "no-cors",
             cache: "no-cache",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "text/plain" },
             body: JSON.stringify(payload)
         })
         .then(() => {
