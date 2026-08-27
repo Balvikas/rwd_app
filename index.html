@@ -254,7 +254,8 @@
                 
                 <div class="field-group">
                     <label for="studentDropdown" class="control-label">Student Name</label>
-                    <select id="studentDropdown" class="input-kiosk" onchange="autofillStudentData()">
+<!-- FIXED: Added autocomplete="off" attribute right inside your select tag wrapper -->
+    <select id="studentDropdown" class="input-kiosk" autocomplete="off" onchange="autofillStudentData()">
                         <option value="">-- Tap to Choose Student --</option>
                         <option value="Sraavi Bojedla">Sraavi Bojedla</option>
 		<option value="Aarka Sai Arikapudi">Aarka Sai Arikapudi</option>
