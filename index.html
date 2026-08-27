@@ -27,10 +27,10 @@
             min-height: 100vh;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             color: var(--text-main);
-            padding-top: 60px; /* Section 2 Added: Creates clear structural workspace spacing for top navbar */
+            padding-top: 60px; /* Shift code layout down to accommodate top fixed menu bar layer */
         }
 
-        /* MODERN HEADER MENU LAYER */
+        /* FIXED MODERN TOP NAVIGATION BAR */
         .top-navbar {
             position: fixed;
             top: 0;
@@ -57,14 +57,15 @@
             color: var(--text-muted);
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.9rem;
-            padding: 0.4rem 0.8rem;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
             border-radius: 8px;
             border: 2px solid var(--border);
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            justify-content: center;
+            gap: 0.5rem;
         }
         .nav-menu-item:hover {
             color: #ea580c;
@@ -74,7 +75,7 @@
 
         /* RESPONSIVE SPLIT SCREEN LAYOUT */
         .kiosk-wrapper {
-            min-height: calc(100vh - 60px); /* Adjusted layout math offset */
+            min-height: calc(100vh - 60px); /* Height offset subtraction math layout rules */
             display: flex;
             flex-direction: column;
         }
@@ -277,11 +278,15 @@
 </head>
 <body>
 
-<!-- Section 1 Added: Permanent Top Navigation Menu Bar Layer -->
+<!-- TOP HEADER BAR BLOCK SETUP WITH GOOGLE-STYLE OUTLINE SIGN-UP ICON -->
 <div class="top-navbar">
     <div class="nav-logo">🌸 Bal Vikas Attendance System</div>
     <a href="signup.html" class="nav-menu-item">
-        <span>📝</span> Manage Roster
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        Sign Up
     </a>
 </div>
 
@@ -295,13 +300,13 @@
         <h2>Student Kiosk</h2>
         <p>Please select your name to complete your quick attendance check-in or check-out.</p>
     </div>
-    
     <!-- Attendance Form Panel -->
     <div class="form-side">
         <div class="form-container">
             <h2 class="mobile-title">Attendance Kiosk</h2>
             
             <form id="kioskForm" onsubmit="return false;">
+
 
                 
                 <div class="field-group">
