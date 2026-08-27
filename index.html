@@ -27,11 +27,55 @@
             min-height: 100vh;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             color: var(--text-main);
+            padding-top: 60px; /* Shift code layout down to accommodate top fixed menu bar layer */
+        }
+
+        /* FIXED MODERN TOP NAVIGATION BAR */
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #ea580c;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .nav-menu-item {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 2px solid var(--border);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .nav-menu-item:hover {
+            color: #ea580c;
+            border-color: #ea580c;
+            background-color: #fff7ed;
         }
 
         /* RESPONSIVE SPLIT SCREEN LAYOUT */
         .kiosk-wrapper {
-            min-height: 100vh;
+            min-height: calc(100vh - 60px); /* Height offset subtraction math layout rules */
             display: flex;
             flex-direction: column;
         }
@@ -226,19 +270,30 @@
         }
         @media (min-width: 992px) {
             .kiosk-wrapper { flex-direction: row; }
-            .hero-side { width: 38%; min-height: 100vh; padding: 4rem; }
-            .form-side { width: 62%; min-height: 100vh; }
+            .hero-side { width: 38%; min-height: calc(100vh - 60px); padding: 4rem; }
+            .form-side { width: 62%; min-height: calc(100vh - 60px); }
             .mobile-title { display: none; }
         }
     </style>
 </head>
 <body>
 
+<!-- TOP HEADER BAR BLOCK SETUP WITH GOOGLE-STYLE OUTLINE SIGN-UP ICON -->
+<div class="top-navbar">
+    <div class="nav-logo">🌸 Bal Vikas Attendance System</div>
+    <a href="signup.html" class="nav-menu-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        Sign Up
+    </a>
+</div>
+
 <div class="kiosk-wrapper">
     <!-- Branding Display Panel -->
     <div class="hero-side">
         <div class="swami-frame">
-            <!-- Modified: Direct internal link mapping parameter addressing Swami.jpg file configuration -->
             <img src="Swami.jpg" alt="Sathya Sai Baba" class="swami-photo">
         </div>
         <h1>Smart Bal Vikas</h1>
@@ -251,12 +306,14 @@
             <h2 class="mobile-title">Attendance Kiosk</h2>
             
             <form id="kioskForm" onsubmit="return false;">
+
+
                 
                 <div class="field-group">
                     <label for="studentDropdown" class="control-label">Student Name</label>
 <!-- FIXED: Added autocomplete="off" attribute right inside your select tag wrapper -->
     <select id="studentDropdown" class="input-kiosk" autocomplete="off" onchange="autofillStudentData()">
-                        <option value="">-- Tap to Choose Student --</option>
+                          <option value="">-- Tap to Choose Student --</option>
                         <option value="Sraavi Bojedla">Sraavi Bojedla</option>
 		<option value="Aarka Sai Arikapudi">Aarka Sai Arikapudi</option>
 <option value="Nirvan Nallamothu">Nirvan Nallamothu</option>
@@ -487,7 +544,7 @@ function autofillStudentData() {
 }
 
 // Global App Link Configuration Variable Settings
-const GOOGLE_SCRIPT_URL = https://script.google.com/macros/s/AKfycbwss8kcNRyIAIYrm1yMZskVXOrRvGyTm5sY2PF4Fn8Wmt98kyaoaPDLWedasx0iUG9p/exec;
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwss8kcNRyIAIYrm1yMZskVXOrRvGyTm5sY2PF4Fn8Wmt98kyaoaPDLWedasx0iUG9p/exec";
 
 function openAbsenteePage() {
     const alertBox = document.getElementById("statusAlert");
