@@ -123,22 +123,23 @@
     <form id="signupForm" onsubmit="return false;">
         <div class="field-group">
             <label for="fullName" class="control-label">Student's Full Name</label>
-            <input type="text" id="fullName" class="input-kiosk" placeholder="Enter full name (Exact match for Update/Delete)" required>
+            <!-- Added autocomplete="off" attribute security parameter -->
+            <input type="text" id="fullName" class="input-kiosk" autocomplete="off" placeholder="Enter full name (Exact match for Update/Delete)" required>
         </div>
 
         <div class="field-group">
             <label for="grade" class="control-label">Grade / Group</label>
-            <input type="text" id="grade" class="input-kiosk" placeholder="e.g. Group 4, Pre-School">
+            <input type="text" id="grade" class="input-kiosk" autocomplete="off" placeholder="e.g. Group 4, Pre-School">
         </div>
 
         <div class="field-group">
             <label for="parent" class="control-label">Parent / Guardian Name</label>
-            <input type="text" id="parent" class="input-kiosk" placeholder="Enter parent full name">
+            <input type="text" id="parent" class="input-kiosk" autocomplete="off" placeholder="Enter parent full name">
         </div>
 
         <div class="field-group">
             <label for="phone" class="control-label">Parent Phone Number</label>
-            <input type="text" id="phone" class="input-kiosk" placeholder="Enter contact phone number">
+            <input type="text" id="phone" class="input-kiosk" autocomplete="off" placeholder="Enter contact phone number">
         </div>
 
         <div class="btn-grid">
@@ -185,14 +186,14 @@
         alertBox.className = "status-alert alert-loading";
         alertBox.textContent = `⏳ Requesting DB ${dbMethod} Operation...`;
 
-        // FIXED: Properties now match your script variables exactly
+        // FIXED: JSON property keys now completely align with your sheet script data assignments
         const payload = {
             action: "manageStudent",
             method: dbMethod,
-            studentName: nameField,   // Maps to your script's var studentName
-            group: gradeField,        // Maps to your script's var group
-            parentName: parentField,  // Maps to your script's var parentName
-            parentPhone: phoneField   // Maps to your script's var incomingPhone
+            fullName: nameField,   
+            grade: gradeField,     
+            parent: parentField,  
+            phone: phoneField      
         };
 
         fetch(GOOGLE_SCRIPT_URL, {
@@ -214,7 +215,7 @@
         .catch(error => {
             alertBox.className = "status-alert alert-danger";
             alertBox.textContent = "❌ Network connection failed.";
-            console.error("Critical failure:", error);
+            console.error(error);
         });
     }
 </script>
