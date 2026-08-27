@@ -70,7 +70,6 @@
             box-shadow: 0 0 0 4px rgba(234, 88, 12, 0.1);
         }
         
-        /* ACTION BUTTONS GRID */
         .btn-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -159,7 +158,6 @@
 </div>
 
 <script>
-    // Paste your exact deployed Google Sheet API URL inside the quotes below:
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwss8kcNRyIAIYrm1yMZskVXOrRvGyTm5sY2PF4Fn8Wmt98kyaoaPDLWedasx0iUG9p/exec";
 
     function executeDatabaseAction(dbMethod) {
@@ -169,9 +167,10 @@
         const phoneField = document.getElementById("phone").value.trim();
         const alertBox = document.getElementById("statusAlert");
 
+        alertBox.style.display = "block";
+
         if (!nameField) {
             alertBox.className = "status-alert alert-danger";
-            alertBox.style.display = "block";
             alertBox.textContent = "❌ Student Full Name is required for all actions.";
             document.getElementById("fullName").focus();
             return;
@@ -179,44 +178,43 @@
 
         if (dbMethod === "INSERT" && (!gradeField || !parentField || !phoneField)) {
             alertBox.className = "status-alert alert-danger";
-            alertBox.style.display = "block";
             alertBox.textContent = "❌ Please fill out all fields to perform an Insert action.";
             return;
         }
 
-        // Display operational processing state
         alertBox.className = "status-alert alert-loading";
-        alertBox.style.display = "block";
         alertBox.textContent = `⏳ Requesting DB ${dbMethod} Operation...`;
 
+        // FIXED: Properties now match your script variables exactly
         const payload = {
             action: "manageStudent",
             method: dbMethod,
-            fullName: nameField,
-            grade: gradeField,
-            parent: parentField,
-            phone: phoneField
+            studentName: nameField,   // Maps to your script's var studentName
+            group: gradeField,        // Maps to your script's var group
+            parentName: parentField,  // Maps to your script's var parentName
+            parentPhone: phoneField   // Maps to your script's var incomingPhone
         };
 
         fetch(GOOGLE_SCRIPT_URL, {
             method: "POST",
             mode: "no-cors",
             cache: "no-cache",
-            headers: { "Content-Type": "text/plain" },
+            headers: { "Content-Type": "text/plain" }, 
             body: JSON.stringify(payload)
         })
         .then(() => {
             alertBox.className = "status-alert alert-success";
-            alertBox.textContent = `🎉 Success! Profile processed under action: ${dbMethod}.`;
+            alertBox.textContent = `🎉 Action [ ${dbMethod} ] processed successfully! Check your Google Sheet.`;
+            
             setTimeout(() => {
                 document.getElementById("signupForm").reset();
                 alertBox.style.display = "none";
-            }, 3000);
+            }, 4000);
         })
         .catch(error => {
             alertBox.className = "status-alert alert-danger";
-            alertBox.textContent = "❌ Connection failed. Check App deployment configurations.";
-            console.error("Management error:", error);
+            alertBox.textContent = "❌ Network connection failed.";
+            console.error("Critical failure:", error);
         });
     }
 </script>
