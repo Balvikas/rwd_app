@@ -27,23 +27,54 @@
             min-height: 100vh;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             color: var(--text-main);
+            padding-top: 60px; /* Section 2 Added: Creates clear structural workspace spacing for top navbar */
         }
-<!-- START OF CHANGES: Paste immediately below <body> -->
-<div class="top-navbar" style="position: fixed; top: 0; left: 0; right: 0; height: 60px; background: white; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
-    <div class="nav-logo" style="font-weight: 700; font-size: 1.1rem; color: #ea580c; text-transform: uppercase; letter-spacing: 0.05em;">🌸 Bal Vikas Attendance System</div>
-    <a href="signup.html" class="nav-menu-item" style="color: #64748b; text-decoration: none; font-weight: 700; font-size: 0.95rem; padding: 0.5rem 1rem; border-radius: 8px; border: 2px solid #e2e8f0; transition: all 0.2s ease; display: flex; align-items: center; gap: 0.4rem;">
-        <span>📝</span> Manage Roster
-    </a>
-</div>
-<!-- END OF CHANGES -->
 
+        /* MODERN HEADER MENU LAYER */
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #ea580c;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .nav-menu-item {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            border: 2px solid var(--border);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .nav-menu-item:hover {
+            color: #ea580c;
+            border-color: #ea580c;
+            background-color: #fff7ed;
+        }
 
-
-
-		
         /* RESPONSIVE SPLIT SCREEN LAYOUT */
         .kiosk-wrapper {
-            min-height: 100vh;
+            min-height: calc(100vh - 60px); /* Adjusted layout math offset */
             display: flex;
             flex-direction: column;
         }
@@ -238,31 +269,40 @@
         }
         @media (min-width: 992px) {
             .kiosk-wrapper { flex-direction: row; }
-            .hero-side { width: 38%; min-height: 100vh; padding: 4rem; }
-            .form-side { width: 62%; min-height: 100vh; }
+            .hero-side { width: 38%; min-height: calc(100vh - 60px); padding: 4rem; }
+            .form-side { width: 62%; min-height: calc(100vh - 60px); }
             .mobile-title { display: none; }
         }
     </style>
 </head>
 <body>
 
+<!-- Section 1 Added: Permanent Top Navigation Menu Bar Layer -->
+<div class="top-navbar">
+    <div class="nav-logo">🌸 Bal Vikas Attendance System</div>
+    <a href="signup.html" class="nav-menu-item">
+        <span>📝</span> Manage Roster
+    </a>
+</div>
+
 <div class="kiosk-wrapper">
     <!-- Branding Display Panel -->
     <div class="hero-side">
         <div class="swami-frame">
-            <!-- Modified: Direct internal link mapping parameter addressing Swami.jpg file configuration -->
             <img src="Swami.jpg" alt="Sathya Sai Baba" class="swami-photo">
         </div>
         <h1>Smart Bal Vikas</h1>
         <h2>Student Kiosk</h2>
         <p>Please select your name to complete your quick attendance check-in or check-out.</p>
     </div>
+    
     <!-- Attendance Form Panel -->
     <div class="form-side">
         <div class="form-container">
             <h2 class="mobile-title">Attendance Kiosk</h2>
             
             <form id="kioskForm" onsubmit="return false;">
+
                 
                 <div class="field-group">
                     <label for="studentDropdown" class="control-label">Student Name</label>
